@@ -35,11 +35,22 @@
             const visitCount = localStorage.getItem(today + "_visitCount") || 0;
             localStorage.setItem(today + "_visitCount", parseInt(visitCount) + 1);
 
-            // 클릭 수 증가
-            document.getElementById('imageLink').onclick = function() {
-                const clickCount = localStorage.getItem(today + "_clickCount") || 0;
-                localStorage.setItem(today + "_clickCount", parseInt(clickCount) + 1);
-            };
+            // 방문 여부 확인
+            if (!sessionStorage.getItem("visited")) {
+                // 세션 스토리지에 방문 기록 저장
+                sessionStorage.setItem("visited", "true");
+                
+                // 클릭 수 증가
+                document.getElementById('imageLink').onclick = function() {
+                    const clickCount = localStorage.getItem(today + "_clickCount") || 0;
+                    localStorage.setItem(today + "_clickCount", parseInt(clickCount) + 1);
+                };
+            } else {
+                // 방문 기록이 있을 경우 클릭 수 증가를 방지
+                document.getElementById('imageLink').onclick = function() {
+                    window.location.href = "https://www.naver.com";
+                };
+            }
         }
 
         // 페이지 로드 시 통계 업데이트
