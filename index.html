@@ -11,7 +11,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: #f0f0f0;
         }
         img {
             max-width: 100%;
@@ -19,24 +19,32 @@
             cursor: pointer;
         }
     </style>
-    <script>
-        // 페이지 접속 시 방문자 수 기록
-        fetch("/visit").catch(console.error);
-
-        // 이미지 클릭 시 클릭 수 기록
-        function updateClickCount() {
-            fetch("/click")
-                .then(() => {
-                    window.location.href = "https://www.naver.com"; // 클릭 시 네이버로 이동
-                })
-                .catch(console.error);
-        }
-    </script>
 </head>
 <body>
-    <a href="javascript:void(0);" onclick="updateClickCount();">
-        <img src="oo.png" alt="오둥이 마을 이미지">
+    <a href="https://www.naver.com" id="imageLink">
+        <img src="oo.png" alt="오둥이 마을">
     </a>
+
+    <script>
+        // 현재 날짜 가져오기
+        const today = new Date().toISOString().split('T')[0];
+
+        // 방문자 수 및 클릭 수 저장 함수
+        function updateStatistics() {
+            // 방문자 수 증가
+            const visitCount = localStorage.getItem(today + "_visitCount") || 0;
+            localStorage.setItem(today + "_visitCount", parseInt(visitCount) + 1);
+
+            // 클릭 수 증가
+            document.getElementById('imageLink').onclick = function() {
+                const clickCount = localStorage.getItem(today + "_clickCount") || 0;
+                localStorage.setItem(today + "_clickCount", parseInt(clickCount) + 1);
+            };
+        }
+
+        // 페이지 로드 시 통계 업데이트
+        window.onload = updateStatistics;
+    </script>
 </body>
 </html>
 
