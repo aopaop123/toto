@@ -21,41 +21,37 @@
     </style>
 </head>
 <body>
-    <a href="https://www.naver.com" id="imageLink">
+
+    <a id="imageLink" href="https://www.naver.com" target="_blank">
         <img src="oo.png" alt="오둥이 마을">
     </a>
 
     <script>
-        // 현재 날짜 가져오기
-        const today = new Date().toISOString().split('T')[0];
+        // 날짜를 기준으로 방문 수와 클릭 수를 기록
+        const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD 형식
+        const visitsKey = `visits_${today}`;
+        const clicksKey = `clicks_${today}`;
 
-        // 방문자 수 및 클릭 수 저장 함수
-        function updateStatistics() {
-            // 방문자 수 증가
-            const visitCount = localStorage.getItem(today + "_visitCount") || 0;
-            localStorage.setItem(today + "_visitCount", parseInt(visitCount) + 1);
-
-            // 방문 여부 확인
-            if (!sessionStorage.getItem("visited")) {
-                // 세션 스토리지에 방문 기록 저장
-                sessionStorage.setItem("visited", "true");
-                
-                // 클릭 수 증가
-                document.getElementById('imageLink').onclick = function() {
-                    const clickCount = localStorage.getItem(today + "_clickCount") || 0;
-                    localStorage.setItem(today + "_clickCount", parseInt(clickCount) + 1);
-                };
-            } else {
-                // 방문 기록이 있을 경우 클릭 수 증가를 방지
-                document.getElementById('imageLink').onclick = function() {
-                    window.location.href = "https://www.naver.com";
-                };
-            }
+        // 페이지 방문 수 기록
+        if (!localStorage.getItem(visitsKey)) {
+            localStorage.setItem(visitsKey, 1);
+        } else {
+            let visitsCount = parseInt(localStorage.getItem(visitsKey));
+            localStorage.setItem(visitsKey, visitsCount + 1);
         }
 
-        // 페이지 로드 시 통계 업데이트
-        window.onload = updateStatistics;
+        // 클릭 수 기록
+        const imageLink = document.getElementById('imageLink');
+        imageLink.addEventListener('click', () => {
+            if (!localStorage.getItem(clicksKey)) {
+                localStorage.setItem(clicksKey, 1);
+            } else {
+                let clicksCount = parseInt(localStorage.getItem(clicksKey));
+                localStorage.setItem(clicksKey, clicksCount + 1);
+            }
+        });
     </script>
+
 </body>
 </html>
 
