@@ -31,24 +31,22 @@
         const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD 형식
         const visitsKey = `visits_${today}`;
         const clicksKey = `clicks_${today}`;
+        const lastVisitKey = `lastVisit_${today}`;
+        const visitTimeout = 1000 * 60 * 60 * 24; // 24시간
 
         // 페이지 방문 수 기록
-        if (!localStorage.getItem(visitsKey)) {
-            localStorage.setItem(visitsKey, 1);
-        } else {
-            let visitsCount = parseInt(localStorage.getItem(visitsKey));
-            localStorage.setItem(visitsKey, visitsCount + 1);
+        const now = Date.now();
+        const lastVisit = localStorage.getItem(lastVisitKey);
+
+        if (!lastVisit || now - lastVisit >= visitTimeout) {
+            localStorage.setItem(visitsKey, (parseInt(localStorage.getItem(visitsKey)) || 0) + 1);
+            localStorage.setItem(lastVisitKey, now);
         }
 
         // 클릭 수 기록
         const imageLink = document.getElementById('imageLink');
         imageLink.addEventListener('click', () => {
-            if (!localStorage.getItem(clicksKey)) {
-                localStorage.setItem(clicksKey, 1);
-            } else {
-                let clicksCount = parseInt(localStorage.getItem(clicksKey));
-                localStorage.setItem(clicksKey, clicksCount + 1);
-            }
+            localStorage.setItem(clicksKey, (parseInt(localStorage.getItem(clicksKey)) || 0) + 1);
         });
     </script>
 
