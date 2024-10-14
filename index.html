@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오둥이마을</title>
+    <title>오둥이 마을</title>
     <style>
         body {
             display: flex;
@@ -19,10 +19,23 @@
             cursor: pointer;
         }
     </style>
+    <script>
+        // 페이지 접속 시 방문자 수 기록
+        fetch("/visit").catch(console.error);
+
+        // 이미지 클릭 시 클릭 수 기록
+        function updateClickCount() {
+            fetch("/click")
+                .then(() => {
+                    window.location.href = "https://www.naver.com"; // 클릭 시 네이버로 이동
+                })
+                .catch(console.error);
+        }
+    </script>
 </head>
 <body>
-    <a href="https://www.naver.com">
-        <img src="oo.png" alt="Clickable Image">
+    <a href="javascript:void(0);" onclick="updateClickCount();">
+        <img src="oo.png" alt="오둥이 마을 이미지">
     </a>
 </body>
 </html>
