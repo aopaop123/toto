@@ -7,23 +7,22 @@
     <style>
         body {
             margin: 0;
-            background-color: black; /* 배경색 검정 */
-            overflow: hidden; /* 스크롤 제거 */
+            background-color: black; /* 배경색을 검정색으로 설정 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 화면 전체 높이 */
+            overflow: hidden; /* 스크롤 바 숨김 */
         }
-
         img {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: auto;
-            height: 100%; /* 항상 화면에 맞게 이미지 높이 조정 */
-            max-width: none; /* 가로 크기 제한 없음 */
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 이미지가 비율을 유지하며 컨테이너에 맞게 조정 */
         }
     </style>
 </head>
 <body>
-    <a href="https://www.naver.com">
+    <a href="https://www.naver.com" target="_blank">
         <img src="oo.png" alt="오둥이 마을 이미지">
     </a>
 </body>
