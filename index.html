@@ -10,7 +10,6 @@
             background-color: black; /* 배경색 검정 */
             overflow: hidden; /* 스크롤 제거 */
         }
-
         img {
             position: absolute;
             top: 0;
@@ -23,9 +22,14 @@
     </style>
 </head>
 <body>
-    <a href="https://www.naver.com" target="_blank">
-        <img src="oo.png" alt="오둥이 마을 이미지">
+    <a href="https://www.naver.com" target="_blank" id="imageLink">
+        <img src="oo.png" alt="오둥이 마을 이미지" onclick="recordClick()">
     </a>
+    <script>
+        async function recordClick() {
+            await fetch('/click', { method: 'GET' });
+        }
+    </script>
 </body>
 </html>
 
