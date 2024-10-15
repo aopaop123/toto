@@ -25,7 +25,17 @@
             height: 100%;
         }
         img {
-            object-fit: contain; /* 이미지 비율 유지, 화면에 맞춰 표시 */
+            object-fit: contain; /* 기본적으로 비율 유지하며 이미지가 화면에 맞게 축소 */
+        }
+        
+        /* PC 화면일 때 처리 */
+        @media (min-width: 1024px) {
+            body {
+                padding: 2%; /* 여백 추가로 이미지가 화면에 맞게 조금 더 크게 표시 */
+            }
+            img {
+                object-fit: cover; /* PC에서는 빈 공간 최소화하고, 비율을 유지하며 확대 */
+            }
         }
     </style>
 </head>
