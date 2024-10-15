@@ -5,33 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오둥이 마을</title>
     <style>
-        body, html {
+        body {
             margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            background-color: black;
-        }
-        .image-container {
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            background-color: black;
         }
+
         img {
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover; /* 이미지를 화면에 맞게 조정 */
-            object-position: center; /* 이미지의 중심을 맞춤 */
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 이미지가 비율을 유지하면서 화면에 가득 차게 */
         }
     </style>
 </head>
 <body>
-    <div class="image-container">
-        <a href="https://www.naver.com" target="_blank">
-            <img src="oo.png" alt="오둥이 마을">
-        </a>
-    </div>
+    <a href="https://www.naver.com" id="imageLink">
+        <img src="oo.png" alt="오둥이 마을">
+    </a>
+    <script>
+        // 클릭 이벤트 추적
+        document.getElementById('imageLink').addEventListener('click', function() {
+            fetch('/api/click', { method: 'POST' });
+        });
+    </script>
 </body>
 </html>
 
